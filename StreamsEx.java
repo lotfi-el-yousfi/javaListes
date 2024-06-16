@@ -1,8 +1,10 @@
 import java.rmi.StubNotFoundException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.List;
 
 public class StreamsEx {
     static Random r = new Random();
@@ -48,6 +50,16 @@ Collect and store the grouped data in a Map<String, List<Student>>,
         Older30(StudentsList);
         DistictCoursesList(StudentsList);
         SortingNLimiting(StudentsList);
+
+        Groupping(StudentsList);
+
+
+    }
+
+    private static void Groupping(ArrayList<Student> StudentsList) {
+        Map<String, List<Student>> studentsByGender = StudentsList.stream()
+                .collect(Collectors.groupingBy(Student::getGender)) ;
+        System.out.println("Students grouped by gender: " + studentsByGender);
     }
 
     private static void SortingNLimiting(ArrayList<Student> StudentsList) {
@@ -73,15 +85,16 @@ Collect and store the grouped data in a Map<String, List<Student>>,
 
     private static void initList(ArrayList<Student> StudentsList, String[] gender) {
         ArrayList<String> courseslist = new ArrayList<String>();
-        courseslist.add("one".concat(String.valueOf(r.nextInt(50, 200))));
-        courseslist.add("two".concat(String.valueOf(r.nextInt(50, 200))));
-        courseslist.add("three".concat(String.valueOf(r.nextInt(50, 200))));
-        for (int i = 0; i < 500; i++) {
+
+        for (int i = 0; i < 10; i++) {
+            courseslist.add("one".concat(String.valueOf(r.nextInt(50, 200))));
+            courseslist.add("two".concat(String.valueOf(r.nextInt(50, 200))));
+            courseslist.add("three".concat(String.valueOf(r.nextInt(50, 200))));
             StudentsList.add(
                     new Student(
                             "student ".concat(String.valueOf(r.nextInt(50, 200))),
                             r.nextInt(21, 45),
-                            gender[r.nextInt(0, 1)],
+                            gender[r.nextInt(0, 2)],
                             courseslist
                     ));
         }
