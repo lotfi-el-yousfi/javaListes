@@ -72,14 +72,16 @@ Collect and store the grouped data in a Map<String, List<Student>>,
 
     private static void DistictCoursesList(ArrayList<Student> StudentsList) {
         StudentsList.stream()
-                .map(e -> e.getCourses())
+                .flatMap(e -> e.getCourses().stream())
                 .distinct()
                 .collect(Collectors.toList())
                 .forEach(System.out::println);
     }
 
     private static void Older30(ArrayList<Student> StudentsList) {
-        int count = (int) StudentsList.stream().filter(e -> e.getAge() > 30).count();
+        int count = (int) StudentsList.stream()
+                .filter(e -> e.getAge() > 30)
+                .count();
         System.out.printf("numbre of student older that 30 years :%d of 500 %n", count);
     }
 
