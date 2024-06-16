@@ -1,5 +1,6 @@
 import java.rmi.StubNotFoundException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,15 @@ Collect and store the grouped data in a Map<String, List<Student>>,
 
         Older30(StudentsList);
         DistictCoursesList(StudentsList);
+        SortingNLimiting(StudentsList);
+    }
 
+    private static void SortingNLimiting(ArrayList<Student> StudentsList) {
+        StudentsList.stream()
+                .sorted(Comparator.comparingInt(Student::getAge))
+                .limit(5)
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
     }
 
     private static void DistictCoursesList(ArrayList<Student> StudentsList) {
