@@ -25,11 +25,86 @@ This table provides a brief description and example implementation of various Ja
 | `toArray()`              | Returns an array containing the elements of the stream.                                                | `Object[] array = stream.toArray()`                                                                                     |
 | `dropWhile(Predicate)`   | Drops elements from the stream while the predicate is true and returns the remaining elements once the predicate becomes false. | `stream.dropWhile(e -> e.getAge() < 30)` |
 
+
+
 ### Examples in Context
 
 1. **`filter` Example**:
    ```java
-   List<Student> students = // initialize list
+   List<Student> students = Arrays.asList(
+       new Student("Alice", 22, "Female", Arrays.asList("Math", "Physics")),
+       new Student("Bob", 31, "Male", Arrays.asList("Chemistry", "Biology")),
+       new Student("Carol", 25, "Female", Arrays.asList("History", "Literature"))
+   );
+
    List<Student> olderStudents = students.stream()
                                          .filter(e -> e.getAge() > 30)
                                          .collect(Collectors.toList());
+
+
+2. **`filter` Example**:
+ ```java
+List<Student> students = Arrays.asList(
+new Student("Alice", 22, "Female", Arrays.asList("Math", "Physics")),
+new Student("Bob", 31, "Male", Arrays.asList("Chemistry", "Biology")),
+new Student("Carol", 25, "Female", Arrays.asList("History", "Literature"))
+);
+
+2. **`filter` Example**:
+ ```java
+List<String> names = students.stream()
+.map(Student::getName)
+.collect(Collectors.toList());
+ Example:
+
+4. **`flatMap` Example**:
+ ```java
+List<Student> students = Arrays.asList(
+new Student("Alice", 22, "Female", Arrays.asList("Math", "Physics")),
+new Student("Bob", 31, "Male", Arrays.asList("Chemistry", "Biology")),
+new Student("Carol", 25, "Female", Arrays.asList("History", "Literature"))
+);
+
+
+5. **`filter` Example**:
+```java
+List<String> allCourses = students.stream()
+.flatMap(e -> e.getCourses().stream())
+.distinct()
+.collect(Collectors.toList());
+
+
+5. **`distinct` Example**:
+  ```java
+List<Student> students = Arrays.asList(
+new Student("Alice", 22, "Female", Arrays.asList("Math", "Physics")),
+new Student("Bob", 31, "Male", Arrays.asList("Chemistry", "Biology")),
+new Student("Carol", 25, "Female", Arrays.asList("History", "Literature")),
+new Student("Alice", 22, "Female", Arrays.asList("Math", "Physics"))
+);
+
+6. **`filter` Example**:
+ ```java
+List<Student> uniqueStudents = students.stream()
+.distinct()
+.collect(Collectors.toList());
+dropWhile Example:
+
+
+7. **`filter` Example**:
+```java
+List<Student> students = Arrays.asList(
+new Student("Alice", 22, "Female", Arrays.asList("Math", "Physics")),
+new Student("Bob", 24, "Male", Arrays.asList("Chemistry", "Biology")),
+new Student("Carol", 25, "Female", Arrays.asList("History", "Literature")),
+new Student("David", 26, "Male", Arrays.asList("Computer Science", "Statistics")),
+new Student("Eve", 23, "Female", Arrays.asList("Art", "Music"))
+);
+
+
+8. **`filter` Example**:
+ ```java
+List<Student> filteredStudents = students.stream()
+.dropWhile(student -> student.getAge() < 25)
+.collect(Collectors.toList());
+filteredStudents.forEach(System.out::println);
