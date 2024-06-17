@@ -71,6 +71,7 @@ Collect and store the grouped data in a Map<String, List<Student>>,
     }
 
     private static void DistictCoursesList(ArrayList<Student> StudentsList) {
+
         StudentsList.stream()
                 .flatMap(e -> e.getCourses().stream())
                 .distinct()
